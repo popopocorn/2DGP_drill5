@@ -50,7 +50,6 @@ player_flag='idle'
 
 while running:
     set_flag()
-    print(player_flag)
     if(player_flag=='idle'):
         play_idle_animation(frame, player_x, player_y)
     elif(player_flag=='up'):

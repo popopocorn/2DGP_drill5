@@ -47,7 +47,6 @@ player_idle = load_image('Sword_Idle_full.png')
 player_run = load_image('Sword_Run_full.png')
 ground = load_image('TUK_GROUND.png')
 player_flag='idle'
-player_dir={(0, 1),  (1, 0), (-1, 0), (0, -1)} #상우좌하
 
 while running:
     set_flag()
@@ -56,16 +55,24 @@ while running:
         play_idle_animation(frame, player_x, player_y)
     elif(player_flag=='up'):
         play_run_animation(0, frame, player_x, player_y)
+        if(player_y<568):
+            player_y+=10
     elif(player_flag=='down'):
         play_run_animation(3, frame, player_x, player_y)
+        if player_y>32:
+            player_y-=10
     elif(player_flag=='left'):
         play_run_animation(2, frame, player_x, player_y)
+        if player_x>32:
+            player_x-=10
     elif(player_flag=='right'):
         play_run_animation(1, frame, player_x, player_y)
+        if player_x<768:
+            player_x+=10
     if (player_flag=='idle'):
         frame = (frame+1)%5
     else:
         frame = (frame+1)%8
-    delay(0.1)
+    delay(0.05)
 
 

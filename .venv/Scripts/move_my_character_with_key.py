@@ -26,11 +26,18 @@ def set_flag():
         elif event.type == SDL_KEYUP:
             player_flag='idle'
             frame=0
-def play_animation(dir, frame):
+def play_run_animation(dir, frame, dx, dy):
     clear_canvas()
-    self.ground.draw(400, 300)
-
+    ground.draw(400, 300)
+    player_run.clip_draw(frame*64, dir*64, 64, 64, dx, dy, 200, 200)
     update_canvas()
+def play_idle_animation(frame, x, y):
+    clear_canvas()
+    ground.draw(400, 300)
+    player_idle.clip_draw(frame*64, 256 - 64, 64, 64, x, y, 200, 200)
+    update_canvas()
+
+
 running = True
 frame = 0
 open_canvas()
@@ -40,21 +47,25 @@ player_idle = load_image('Sword_Idle_full.png')
 player_run = load_image('Sword_Run_full.png')
 ground = load_image('TUK_GROUND.png')
 player_flag='idle'
-player_dir={(0, 1), (0, -1), (-1, 0), (1, 0)} #상하좌우
+player_dir={(0, 1),  (1, 0), (-1, 0), (0, -1)} #상우좌하
 
 while running:
     set_flag()
+    print(player_flag)
     if(player_flag=='idle'):
-        pass
+        play_idle_animation(frame, player_x, player_y)
     elif(player_flag=='up'):
-        pass
+        play_run_animation(0, frame, player_x, player_y)
     elif(player_flag=='down'):
-        pass
+        play_run_animation(3, frame, player_x, player_y)
     elif(player_flag=='left'):
-        pass
+        play_run_animation(2, frame, player_x, player_y)
     elif(player_flag=='right'):
-        pass
-
-    delay(0.05)
+        play_run_animation(1, frame, player_x, player_y)
+    if (player_flag=='idle'):
+        frame = (frame+1)%5
+    else:
+        frame = (frame+1)%8
+    delay(0.1)
 
 
